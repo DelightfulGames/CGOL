@@ -153,7 +153,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridSize: 0
-  nodePrefab: {fileID: 1542529830486667943, guid: f72f3efefadbd954196912410f2813a2, type: 3}
+  nodePrefabs:
+  - {fileID: 413978764906239205, guid: 115b2995aa664d542b41ce2ec2df61c4, type: 3}
+  - {fileID: 1542529830486667943, guid: f72f3efefadbd954196912410f2813a2, type: 3}
+  - {fileID: 6370081595639264735, guid: 043ac42ac154dd449a5563a0bf276c6d, type: 3}
+  - {fileID: 5885674480805018165, guid: 108343d50dfd48b499206ed10f46ac36, type: 3}
 --- !u!4 &1396251885
 Transform:
   m_ObjectHideFlags: 0

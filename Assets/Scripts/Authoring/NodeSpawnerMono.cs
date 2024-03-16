@@ -5,6 +5,6 @@ namespace DG.CGOL
     public class NodeSpawnerMono : MonoBehaviour
     {
         public int gridSize;
-        public GameObject nodePrefab;
+        public GameObject[] nodePrefabs;
     }
 }

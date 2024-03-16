@@ -8,11 +8,20 @@ namespace DG.CGOL
         public override void Bake(NodeSpawnerMono authoring)
         {
             var entity = GetEntity(TransformUsageFlags.Dynamic);
+            var prefabBuffer = AddBuffer<NodeSpawnerPrefabs>(entity);
             AddComponent(entity, new NodeSpawnerProperties
             {
                 gridSize = authoring.gridSize,
-                nodePrefab = GetEntity(authoring.nodePrefab, TransformUsageFlags.Dynamic)
             });
+
+            foreach (var prefab in authoring.nodePrefabs)
+            {
+                prefabBuffer.Add(new NodeSpawnerPrefabs()
+                {
+                    nodePrefab = GetEntity(prefab, TransformUsageFlags.Dynamic),
+                });
+            }
+
             AddComponent(entity, new NodeSpawnerSetTag());
         }
     }
