@@ -22,9 +22,9 @@ public class CameraController : MonoBehaviour
             return;
 
         if (context.ReadValue<float>() > 0)
-            camera.fieldOfView += 10;
+            camera.fieldOfView = math.clamp(camera.fieldOfView + 10.0f, 10.0f, 160.0f);
         else if (context.ReadValue<float>() < 0)
-            camera.fieldOfView -= 10;
+            camera.fieldOfView = math.clamp(camera.fieldOfView - 10.0f, 10.0f, 160.0f);
     }
 
     private void LateUpdate()

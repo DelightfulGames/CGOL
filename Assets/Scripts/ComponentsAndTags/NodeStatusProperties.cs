@@ -18,8 +18,7 @@ namespace DG.CGOL
         public NativeArray<NodeStatus> nodeStatusBuffer;
         public int nodesAlive;
         public int generations;
-        public int lastGenerationAlive;
-        public int homeostatisCheck;
+        public NativeArray<int> lastGenerationAlive;
         public bool homeostasisAchieved;
     }
 }

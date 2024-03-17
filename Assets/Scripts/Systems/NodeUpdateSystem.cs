@@ -122,20 +122,13 @@ namespace DG.CGOL
                         nodeStatusProperties.ValueRO.nodeStatusBuffer;
                     nodeStatusProperties.ValueRW.nodeStatusBuffer = tempArray;
 
-                    if (nodeStatusProperties.ValueRO.lastGenerationAlive ==
-                        nodeStatusProperties.ValueRO.nodesAlive)
-                    {
-                        nodeStatusProperties.ValueRW.homeostatisCheck++;
-                        if (nodeStatusProperties.ValueRO.homeostatisCheck > 7)
-                            nodeStatusProperties.ValueRW.homeostasisAchieved = true;
-                    }
-                    else
-                    {
-                        nodeStatusProperties.ValueRW.homeostatisCheck = 0;
-                        nodeStatusProperties.ValueRW.lastGenerationAlive =
-                            nodeStatusProperties.ValueRO.nodesAlive;
+                    nodeStatusProperties.ValueRW.lastGenerationAlive[
+                        nodeStatusProperties.ValueRO.generations %
+                        nodeStatusProperties.ValueRO.lastGenerationAlive.Length
+                        ] = nodeStatusProperties.ValueRO.nodesAlive;
+
+                    if (!nodeStatusProperties.ValueRO.homeostasisAchieved)
                         nodeStatusProperties.ValueRW.generations++;
-                    }
 
                     if (state.EntityManager.HasComponent<NodeGenerationStepTag>(nodeSpawnerEntity))
                         ecb.RemoveComponent<NodeGenerationStepTag>(nodeSpawnerEntity);
