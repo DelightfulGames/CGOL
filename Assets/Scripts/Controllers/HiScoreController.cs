@@ -21,6 +21,11 @@ public class HiScoreController : MonoBehaviour
 
     private void Start()
     {
+        ResetScores();
+    }
+
+    private void ResetScores()
+    {
         aliveValue.text = PlayerPrefs.GetInt("Alive", 0).ToString();
         densityValue.text = PlayerPrefs.GetFloat("Density", 0.00f).ToString();
         generationsValue.text = PlayerPrefs.GetInt("Generations", 0).ToString();
@@ -67,5 +72,11 @@ public class HiScoreController : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void ResetHiScores()
+    {
+        PlayerPrefs.DeleteAll();
+        ResetScores();
     }
 }

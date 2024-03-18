@@ -19,7 +19,8 @@ namespace DG.CGOL
     }
 
     [BurstCompile]
-    [UpdateAfter(typeof(NodeSpawnSystem))]
+    [UpdateBefore(typeof(HomeoStasisCheckSystem))]
+    [UpdateInGroup(typeof(SimulationSystemGroup))]
     public partial struct NodeUpdateSystem : ISystem
     {
         public void OnCreate(ref SystemState state)
@@ -144,9 +145,6 @@ namespace DG.CGOL
         {
             float desiredRow = index / rowSize;
             float desiredColumn = index % rowSize;
-
-            //Debug.Log($"Parameters: {index} | {rowSize} | {size}");
-            //Debug.Log($"Vars: {desiredRow} | {desiredColumn}");
 
             if (neighborPosition == NeighborPosition.TopLeft ||
                 neighborPosition == NeighborPosition.Top ||

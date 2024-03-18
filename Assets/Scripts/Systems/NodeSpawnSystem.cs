@@ -5,10 +5,12 @@ using Unity.Mathematics;
 using Unity.Transforms;
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEngine;
 
 namespace DG.CGOL
 {
     [BurstCompile]
+    [UpdateInGroup(typeof(InitializationSystemGroup))]
     public partial struct NodeSpawnSystem : ISystem
     {
         private const float closest = 5.0f;
@@ -33,8 +35,8 @@ namespace DG.CGOL
 
                 var gridSize = nodeSpawnerProperties.gridSize;
                 var a = gridSize / 2;
-                var distance = 1 / (MathF.Tan(0.523599f) / a);  //hardcoded to half the angle (in radians) of the camera fov, but it's fine for demonstration purposes
-                distance = MathF.Max(distance, closest) + 10;   //padding for strange even number gridSize bug
+                var distance = 1 / (math.tan(0.523599f) / a);  //hardcoded to half the angle (in radians) of the camera fov, but it's fine for demonstration purposes
+                distance = Mathf.Max(distance, closest) + 10;   //padding for strange even number gridSize bug
 
                 ecb.SetComponent(nodeSpawnerEntity, LocalTransform.FromPosition(0, 0, distance));
 

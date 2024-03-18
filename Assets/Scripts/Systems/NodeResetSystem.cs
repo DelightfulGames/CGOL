@@ -5,6 +5,8 @@ using Unity.Mathematics;
 namespace DG.CGOL
 {
     [BurstCompile]
+    [UpdateInGroup(typeof(SimulationSystemGroup))]
+    [UpdateBefore(typeof(NodeUpdateSystem))]
     public partial struct NodeResetSystem : ISystem
     {
         public void OnCreate(ref SystemState state)

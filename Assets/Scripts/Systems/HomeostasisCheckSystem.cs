@@ -7,8 +7,9 @@ using Unity.Mathematics;
 
 namespace DG.CGOL
 {
-    [UpdateAfter(typeof(NodeUpdateSystem))]
     [BurstCompile]
+    [UpdateInGroup(typeof(SimulationSystemGroup))]
+    [UpdateAfter(typeof(NodeUpdateSystem))]
     public partial struct HomeoStasisCheckSystem : ISystem
     {
         public void OnCreate(ref SystemState state)
@@ -25,8 +26,6 @@ namespace DG.CGOL
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            //var ecb = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(state.WorldUnmanaged);
-
             foreach (var nodeStatusProperties in
                 SystemAPI.Query<RefRW<NodeStatusProperties>>()
                 .WithNone<NodeSpawnerSetTag>())
@@ -40,9 +39,16 @@ namespace DG.CGOL
                 // Check the last additions first
                 int countIndex = generationsIndex - 1;
 
+                if (lastGens[(countIndex + lastGens.Length) % lastGens.Length] == 0)
+                {
+                    nodeStatusProperties.ValueRW.homeostasisAchieved = true;
+                    return;
+                }
+
                 var sequenceBeginIndex = countIndex;
                 //UnityEngine.Debug.Log(lastGens[(countIndex + lastGens.Length) % lastGens.Length]);
 
+                // I apologize for the modular math hell, but that's efficiency for you
                 for (int repeatIndex = countIndex - 1; repeatIndex >= countIndex - lastGens.Length; repeatIndex--)
                 {
                     if (lastGens[(repeatIndex + lastGens.Length) % lastGens.Length] == 0)
